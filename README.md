@@ -39,3 +39,15 @@ long_way_out/build.sh    # -> out/the_long_way_out.mp4
 | `long_way_out/captions.md` | caption hook, engagement prompt, disclaimer, VO script |
 
 Requires `python3` + `numpy` + `pillow`, `ffmpeg`, `espeak-ng`, Inter font (`/usr/share/fonts/opentype/inter`).
+
+## Blocky 3D reels (no narration, timed captions)
+
+A tiny flat-shaded software 3D engine (`blocky/`) renders Roblox-style block worlds; captions are timed to the on-screen events
+(serif title, italic word-by-word captions, small-caps stat readout). Audio is synthesized music + sound effects only, no TTS.
+
+```
+alien_war/build.sh              # -> out/what_if_aliens.mp4          (fictional: "What if aliens declared war on Earth?")
+long_way_out_blocky/build.sh    # -> out/the_long_way_out_blocky.mp4 (blocky re-do of The Long Way Out)
+```
+
+`blocky/engine.py` (3D), `props.py` (people, buildings, ships, explosions), `ui.py` (captions/HUD), `audio.py` (synth + mixer), `runner.py` (parallel encode).
