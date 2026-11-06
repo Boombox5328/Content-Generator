@@ -4,7 +4,9 @@
 Beat 1 (hook) built + 3 s test render (`out/test/beat01_test.mp4`). Beats 2–10 not built yet, awaiting style sign-off.
 
 ## Flags (facts / brief issues — nothing silently changed)
-- **Brief was cut off?** Beat sheet arrived complete through beat 10, no issues there.
+- Selfish Machines: sources disagree on June 21 vs 22, 2010, so on-screen copy says only "June 2010" (no day).
+- **Confirm before posting:** Petco Park (Sept 12, 2026) is confirmed sold out, but no recap confirming the show happened as planned was found. Beat 10 copy is written as given.
+- Mike Fuentes appears only as the single neutral line in beat 7 plus an empty drum riser; nothing further is depicted.
 - Beat 4 text says "#1 Heatseekers" — kept as given; not independently verified.
 - Beat 9: brief says "So Far So Fake" went viral "more than two years after release" and the deluxe edition is May 2025 — kept as given.
 
