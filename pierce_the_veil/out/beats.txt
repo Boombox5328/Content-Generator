@@ -1,0 +1,33 @@
+# cut / beat-marker list (seconds)  — every line is a hard cut (new shot) in the silent MP4
+# time  beat  shot
+0.00  hook  [BEAT START]  shot 1
+3.00  before_today  [BEAT START]  shot 1
+5.00  before_today  shot 2
+6.60  before_today  shot 3
+8.20  before_today  shot 4
+10.00  flair  [BEAT START]  shot 1
+12.50  flair  shot 2
+15.00  flair  shot 3
+18.00  grind  [BEAT START]  shot 1
+20.40  grind  shot 2
+23.60  grind  shot 3
+26.00  breakout  [BEAT START]  shot 1
+28.60  breakout  shot 2
+31.00  breakout  shot 3
+33.60  breakout  shot 4
+36.00  misadventures  [BEAT START]  shot 1
+38.60  misadventures  shot 2
+41.00  misadventures  shot 3
+43.00  silence  [BEAT START]  shot 1
+45.50  silence  shot 2
+47.60  silence  shot 3
+50.00  jaws  [BEAT START]  shot 1
+52.30  jaws  shot 2
+54.40  jaws  shot 3
+56.20  jaws  shot 4
+58.00  sofarsofake  [BEAT START]  shot 1
+60.60  sofarsofake  shot 2
+64.20  sofarsofake  shot 3
+68.00  homecoming  [BEAT START]  shot 1
+70.00  homecoming  shot 2
+75.00  END

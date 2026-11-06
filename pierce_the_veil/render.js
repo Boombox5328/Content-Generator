@@ -33,6 +33,7 @@ async function worker() {
 const workers = await Promise.all(Array.from({ length: WORKERS }, worker));
 for (const t of STILLS) fs.writeFileSync(path.join(path.dirname(OUT), `still_${t.toFixed(2)}.png`), await workers[0].shot(t));
 
+if (!arg('no-beats', false)) fs.writeFileSync(path.join(path.dirname(OUT), 'beats.txt'), await workers[0].page.evaluate(() => window.beatsTxt()) + '\n');
 const f0 = Math.round(FROM * FPS), f1 = Math.round(TO * FPS);
 if (f1 > f0 && !arg('no-video', false)) {
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-vcodec', 'png', '-i', '-',

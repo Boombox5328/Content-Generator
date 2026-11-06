@@ -1,16 +1,23 @@
 # NOTES
 
-## Status
-Beat 1 (hook) built + 3 s test render (`out/test/beat01_test.mp4`). Beats 2–10 not built yet, awaiting style sign-off.
+## Fact flags (nothing silently changed)
+- *Selfish Machines*: sources disagree on June 21 vs 22, 2010. Copy says only "June 2010" (and the film shows no release day).
+- **Petco Park, Sept 12, 2026**: confirmed sold out, but no recap confirming the show went ahead as planned. Verify before posting.
+- Beat 4 map shows no city names; the route is decorative, not a factual itinerary.
+- Beat 9 billboards use only brief facts (Madison Square Garden, Red Rocks, Kia Forum / 3 nights). A fourth generic "SOLD OUT" billboard is decoration.
+- "5 albums" on the end card = A Flair for the Dramatic, Selfish Machines, Collide with the Sky, Misadventures, The Jaws of Life.
 
-## Flags (facts / brief issues — nothing silently changed)
-- Selfish Machines: sources disagree on June 21 vs 22, 2010, so on-screen copy says only "June 2010" (no day).
-- **Confirm before posting:** Petco Park (Sept 12, 2026) is confirmed sold out, but no recap confirming the show happened as planned was found. Beat 10 copy is written as given.
-- Mike Fuentes appears only as the single neutral line in beat 7 plus an empty drum riser; nothing further is depicted.
-- Beat 4 text says "#1 Heatseekers" — kept as given; not independently verified.
-- Beat 9: brief says "So Far So Fake" went viral "more than two years after release" and the deluxe edition is May 2025 — kept as given.
+## Sensitive content
+- 2017 is a single neutral card ("2017: The band goes dark."), the drummer figure fades, the riser stays empty. Nothing else is shown or implied.
+- Beat 8 uses one generic "new drummer" figure; it does not separately depict the record vs. tour drummers.
 
-## Design decisions to confirm
-- **Counter in the hook rewinds** 2026 → 2004 during the dive (so frame 1 and the last frame both read 2026 and the loop is seamless), then ticks forward. Brief says "ticks forward"; say if you want 2004 at frame 1 instead.
-- Road is straight; the hometown (garage + stadium) is built twice, at road start and road end, so beat 10's pull-back reuses beat 1's camera path reversed.
-- Garage shows gear only (drum kit silhouette, amps); no figures until beat 2.
+## Creative decisions
+- Hook counter runs 2026 → 2004 during the dive (so the loop's first/last frame both read 2026), then ticks forward. (Approved.)
+- Garage + stadium "hometown" is built at both ends of the road; beat 10 reverses beat 1's dive so the last frame matches frame 1. The 3D scene matches; the end-card text overlays the final frames.
+- Figures are faceless blocky silhouettes with generic hair/clothes; instruments only. No logos, no album art (monoliths are abstract). The phone shows a generic play icon.
+- Captions render in uppercase with a word-by-word pop and a highlighted keyword.
+- Safe zones: nothing above y=220 / below y=1540 / right of x=960 in the HUD (3D billboards are in-world scenery).
+
+## Render
+`node render.js --from 0 --to 75 --workers 4 --out out/ptv_history_reel.mp4`
+ffmpeg (inside render.js): `-f image2pipe -framerate 30 -vcodec png -i - -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p -movflags +faststart -an`

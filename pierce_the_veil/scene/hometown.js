@@ -1,6 +1,7 @@
 // The "hometown" cluster: garage + stadium. Built twice (road start / road end) so that the
 // closing pull-back can reproduce frame 1 exactly and the reel loops.
-import { THREE, flat, unlit, halo, glowTexture, rng, lerp, clamp } from './common.js';
+import { THREE, flat, unlit, box as cbox, halo, glowTexture, rng, lerp, clamp } from './common.js';
+import { makeBuilding, makeLamp, makeTree } from './props.js';
 
 export const STADIUM_C = new THREE.Vector3(-70, 0, -60);
 export const GARAGE_C = new THREE.Vector3(14, 0, -4);
@@ -84,14 +85,8 @@ export function buildHometown() {
   const shape = new THREE.Shape(); shape.moveTo(-5.1, 0); shape.lineTo(5.1, 0); shape.lineTo(0, 2.9); shape.closePath();
   const roofGeo = new THREE.ExtrudeGeometry(shape, { depth: 8.8, bevelEnabled: false }); roofGeo.translate(0, 0, -4.4);
   const roof = new THREE.Mesh(roofGeo, roofMat); roof.position.y = 5.2; ga.add(roof);
-  // drum kit silhouette + amps (gear only, no people)
-  const drumMat = flat(0xe9e4f5, { emissive: 0x6a3b12, emissiveIntensity: 0.8 });
-  for (const [x, z, r] of [[-1.3, -1.2, 0.75], [0.2, -2, 0.8], [1.7, -1.2, 0.7]]) {
-    const d = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.6, 8), drumMat); d.position.set(x, 1.2, z); ga.add(d);
-  }
-  const kick = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 1.0, 8), flat(0xb3263e, { emissive: 0x4a0a14 }));
-  kick.rotation.x = Math.PI / 2; kick.position.set(0.2, 0.9, -0.4); ga.add(kick);
-  box(1.3, 1.8, 1, -2.6, 1.1, 5.6, flat(0x23202e)); box(1.3, 1.2, 1, 2.9, 0.8, 5.2, flat(0x23202e));
+  // gear by the door (amps only; the figures bring their own kit)
+    box(1.3, 1.8, 1, -2.6, 1.1, 5.6, flat(0x23202e)); box(1.3, 1.2, 1, 2.9, 0.8, 5.2, flat(0x23202e));
   const spill = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), new THREE.MeshBasicMaterial({
     map: glowTexture(), color: 0xffa24a, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
   spill.rotation.x = -Math.PI / 2; spill.position.set(0, 0.35, 8); ga.add(spill);
@@ -99,6 +94,15 @@ export function buildHometown() {
 
   fx.garageLight = new THREE.PointLight(0xffa24a, 900, 55, 2); fx.garageLight.position.set(0, 3, 7); ga.add(fx.garageLight);
   fx.fieldLight = new THREE.PointLight(0xfff0c8, 14000, 220, 2); fx.fieldLight.position.set(0, 60, 0); st.add(fx.fieldLight);
+
+  // ---------- city skyline, street lamps, trees, flags ----------
+  const city = [[-150, -190, 26, 70], [-118, -205, 22, 95], [-84, -200, 24, 60], [-30, -215, 28, 82], [10, -200, 20, 55], [-175, -120, 22, 48], [-160, 10, 20, 40], [-150, -250, 30, 120], [-60, -250, 26, 100]];
+  const hues = ['#6d86b3', '#8a7fb8', '#5f9aa8', '#b08aa6', '#7a8fb0'];
+  city.forEach(([x, z, w, h], i) => { const b = makeBuilding({ w, h, d: w, color: hues[i % 5], glow: true, seed: i + 3 }); b.position.set(x, 0, z); g.add(b); });
+  for (let i = 0; i < 6; i++) { const l = makeLamp(); l.position.set(-9, 0, 30 - i * 28); l.rotation.y = Math.PI; g.add(l); }
+  for (const [x, z] of [[28, 12], [32, -20], [-14, 24], [26, 34], [-16, -40], [36, -8]]) { const tr = makeTree(x + z, 1.2); tr.position.set(x, 0, z); g.add(tr); }
+  for (let k = 0; k < 8; k++) { const a = (k / 8) * Math.PI * 2 + Math.PI / 8, fp = new THREE.Group(); fp.position.set(STADIUM_C.x + Math.cos(a) * 46, 17, STADIUM_C.z + Math.sin(a) * 46);
+    fp.add(cbox(0.2, 7, 0.2, flat(0xdddddd), 0, 3.5, 0), cbox(4, 2.4, 0.15, flat([0xff4f5e, 0xffd166, 0x4fd5ff, 0xb388ff][k % 4]), 2, 6, 0)); g.add(fp); }
 
   g.userData.fx = fx;
   return g;
