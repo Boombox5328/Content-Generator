@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>PTV reel</title>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js"}}</script>
+<style>
+  html,body{margin:0;background:#000;overflow:hidden}
+  #stage{position:relative;width:1080px;height:1920px;overflow:hidden}
+  canvas{display:block;width:1080px;height:1920px}
+  /* Instagram safe zone: nothing in top 220px, bottom 380px (y>1540), right 120px (x>960) */
+  #year{position:absolute;left:60px;top:240px;font:900 132px/1 "Inter","DejaVu Sans",sans-serif;
+        color:#fff;letter-spacing:-4px;font-variant-numeric:tabular-nums;text-shadow:0 6px 0 rgba(0,0,0,.35),0 0 40px var(--accent,#ffd27a);transform-origin:left center}
+  #card{position:absolute;left:60px;width:840px;bottom:420px;font:900 88px/1.04 "Inter","DejaVu Sans",sans-serif;white-space:pre-line;
+        color:#fff;text-shadow:0 6px 0 rgba(0,0,0,.45),0 0 36px rgba(0,0,0,.55);opacity:0}
+  #card .bar{width:150px;height:14px;background:var(--accent,#ffd27a);margin-bottom:26px;transform-origin:left}
+  #cta{margin-top:28px;font:800 52px/1.1 "Inter","DejaVu Sans",sans-serif;color:var(--accent,#ffd27a)}
+</style></head>
+<body><div id="stage"><canvas id="c" width="1080" height="1920"></canvas>
+<div id="year">2026</div>
+<div id="card"><div class="bar"></div><div id="txt"></div><div id="cta"></div></div></div>
+<script type="module" src="/main.js"></script></body></html>
