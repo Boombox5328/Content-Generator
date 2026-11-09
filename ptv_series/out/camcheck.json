@@ -1,0 +1,98 @@
+[
+ {
+  "id": "1a",
+  "dur": 2,
+  "maxDegPerSec": 1.2,
+  "holdSpeed": 0
+ },
+ {
+  "id": "1b",
+  "dur": 2,
+  "maxDegPerSec": 2,
+  "holdSpeed": 0
+ },
+ {
+  "id": "2a",
+  "dur": 3.7,
+  "maxDegPerSec": 2.2,
+  "holdSpeed": 0
+ },
+ {
+  "id": "2b",
+  "dur": 3.7,
+  "maxDegPerSec": 12.9,
+  "holdSpeed": 0
+ },
+ {
+  "id": "2c",
+  "dur": 3.6,
+  "maxDegPerSec": 9.3,
+  "holdSpeed": 0
+ },
+ {
+  "id": "3a",
+  "dur": 3.7,
+  "maxDegPerSec": 3.5,
+  "holdSpeed": 0
+ },
+ {
+  "id": "3b",
+  "dur": 3.7,
+  "maxDegPerSec": 10.1,
+  "holdSpeed": 0
+ },
+ {
+  "id": "3c",
+  "dur": 3.6,
+  "maxDegPerSec": 2.1,
+  "holdSpeed": 0
+ },
+ {
+  "id": "4a",
+  "dur": 4.5,
+  "maxDegPerSec": 0.2,
+  "holdSpeed": 0
+ },
+ {
+  "id": "4b",
+  "dur": 4.5,
+  "maxDegPerSec": 8.4,
+  "holdSpeed": 0
+ },
+ {
+  "id": "5a1",
+  "dur": 3.5,
+  "maxDegPerSec": 10.5,
+  "holdSpeed": 0
+ },
+ {
+  "id": "5a2",
+  "dur": 3.5,
+  "maxDegPerSec": 1.3,
+  "holdSpeed": 0
+ },
+ {
+  "id": "5a3",
+  "dur": 3.5,
+  "maxDegPerSec": 4.2,
+  "holdSpeed": 0
+ },
+ {
+  "id": "5b1",
+  "dur": 5,
+  "maxDegPerSec": 3.6,
+  "holdSpeed": 0
+ },
+ {
+  "id": "5b2",
+  "dur": 5,
+  "maxDegPerSec": 8.8,
+  "holdSpeed": 0
+ },
+ {
+  "id": "END",
+  "dur": 4.5,
+  "maxDegPerSec": 0.7,
+  "holdSpeed": 0
+ }
+]
