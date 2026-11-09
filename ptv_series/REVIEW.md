@@ -26,3 +26,14 @@ Method: draft render at 1× (`out/part1_draft.mp4`), contact sheet at 1 fps (`ou
 - Hook shots (2 s) break the 3.5 s minimum by necessity.
 - Ensemble shots fill 25–35 % of the frame, not 40 %.
 - Final-render re-check: contact sheet of `out/ptv_part1_garage_years.mp4` is listed below once rendered.
+
+## Round 2 (final 2× render, `out/ptv_part1_garage_years.mp4`) — contact sheet re-checked
+| Check | Result |
+|---|---|
+| 2c sign cropped | FIXED — "BEFORE TODAY" → "PIERCE THE VEIL" fully readable |
+| Studio too dark (3a/3b) | IMPROVED — figures and rain window read; still moody by design |
+| Club black mass (5b) | IMPROVED — crowd now rim-lit teal/red, stage and monument visible |
+| Faceted / rim / AO / bloom-on-lights / each set reads / card timing / year tags / holds / ≤15°/s | PASS (unchanged from round 1) |
+| **4a/4b lower third (desk + window frame) still mostly black** | **OPEN** — the control-room fill did not lift it enough. Fix = move/raise the camera or drop the desk from these two shots (≈3.7 h re-render, so not done without your OK). |
+| Hook shots 2 s (< 3.5 s) | OPEN by design (NOTES.md #1) |
+| Ensemble shots 25–35 % of frame | OPEN (NOTES.md #6) |
