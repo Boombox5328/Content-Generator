@@ -1,3 +1,5 @@
 __pycache__/
 node_modules/
 frames/
+ptv_series/out/*_2x.png
+ptv_series/out/frames/

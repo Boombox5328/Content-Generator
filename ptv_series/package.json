@@ -1,0 +1,2 @@
+{ "name": "ptv-series", "private": true, "type": "module", "version": "1.0.0",
+  "dependencies": { "three": "0.160.0", "postprocessing": "6.36.4", "n8ao": "1.9.4", "puppeteer-core": "22.15.0" } }

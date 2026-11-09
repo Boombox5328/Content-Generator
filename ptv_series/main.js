@@ -1,0 +1,39 @@
+import * as THREE from 'three';
+import { createPipeline } from './engine/pipeline.js';
+import { Director } from './engine/director.js';
+import { setHud } from './engine/hud.js';
+import { makeGarage } from './sets/garage.js';
+import { makeStudio } from './sets/studio.js';
+import { makeFestival } from './sets/festival.js';
+import { makeClub } from './sets/club.js';
+import { makePetco } from './sets/petco.js';
+
+const pipe = createPipeline(document.getElementById('c'), +(new URLSearchParams(location.search).get('pr') || 2));
+const dir = new Director(pipe);
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+const sets = {};
+const reg = (id, make) => { try { sets[id] = dir.register(make()); } catch (e) { console.error('SET FAIL', id, e.stack.split('\n').slice(0, 4).join(' | ')); } };
+reg('garage', makeGarage); reg('studio', makeStudio); reg('festival', makeFestival); reg('club', makeClub); reg('petco', makePetco);
+
+// hero style frames: { set, t, cfg, cam, look overrides, hud }
+const STILLS = {
+  hookB: { set: 'garage', t: 2.0, cfg: { mode: 'hook' }, cam: { pos: V(0.1, 1.2, 1.6), look: V(0, 2.55, -6), fov: 42 }, look: { dofScale: 2.2, focus: 8, focusRange: 3 }, hud: { year: '2004', card: 'From this garage… to this.' } },
+  b2: { set: 'garage', t: 3.1, cfg: { mode: 'band', board: 0 }, cam: { pos: V(1.8, 1.5, 9.6), look: V(-0.1, 1.9, -3.2), fov: 36 }, look: { dofScale: 1.4, focus: 14, focusRange: 5 }, hud: { year: '2004–06', card: 'A song title becomes a band.' } },
+};
+STILLS.b3 = { set: 'studio', t: 4.2, cfg: { mode: 'studio', monument: 0.72, show: {} }, cam: { pos: V(0.6, 1.95, 3.4), look: V(0.1, 1.15, -5.0), fov: 40 }, look: { dofScale: 2.4, focus: 8.4, focusRange: 3.0 }, hud: { year: '2007', card: 'Two brothers. One debut.' } };
+STILLS.b4 = { set: 'studio', t: 6.0, cfg: { mode: 'rehearsal', monument: 1, spots: [1, 1, 0.9, 0.9], show: { tony: true, jaime: true } }, cam: { pos: V(0.0, 1.95, 2.8), look: V(0.0, 1.2, -5.2), fov: 44 }, look: { dofScale: 1.4, focus: 8.4, focusRange: 3.5 }, hud: { year: '2007', card: 'Then there were four.' } };
+STILLS.hookA = { set: 'petco', t: 1.2, cfg: {}, cam: { pos: V(-2, 9, 54), look: V(0, 22.5, -120), fov: 46 }, look: { dofScale: 0 }, hud: { year: '2026', card: 'From this garage… to this.' } };
+STILLS.b5a = { set: 'festival', t: 2.4, cfg: {}, cam: { pos: V(-2.6, 2.5, 28.5), look: V(0.2, 4.0, -2), fov: 38 }, look: { dofScale: 1.8, focus: 30, focusRange: 10 }, hud: { year: '2008', card: 'A full Warped Tour run.' } };
+STILLS.b5b = { set: 'club', t: 3.0, cfg: { monument: 1 }, cam: { pos: V(0.7, 2.2, 8.4), look: V(0.0, 2.9, -8), fov: 40 }, look: { dofScale: 1.4, focus: 15, focusRange: 7 }, hud: { year: '2010', card: '#1 on Heatseekers.' } };
+window.renderStill = async (name, tOverride) => {
+  const s = STILLS[name]; if (!s) throw new Error('unknown still ' + name);
+  const set = dir.use(s.set); const t = tOverride ?? s.t;
+  set.update(t, s.cfg); dir.camera(s.cam); pipe.setLook({ ...set.look, ...(s.look || {}) });
+  if (set.sky) set.sky.userData.follow(pipe.camera);
+  setHud(s.hud || {}); pipe.render(Math.round(t * 30), t);
+  return { name, tris: 0 };
+};
+window.renderCustom = async (o) => { const set = dir.use(o.set); const t = o.t ?? 1; set.update(t, o.cfg || {}); const c = o.cam; dir.camera({ pos: V(...c.pos), look: V(...c.look), fov: c.fov ?? 40 }); pipe.setLook({ ...set.look, ...(o.look || {}) });
+  if (set.sky) set.sky.userData.follow(pipe.camera); setHud(o.hud || {}); pipe.render(Math.round(t * 30), t); return o.set; };
+window.listStills = () => Object.keys(STILLS);
+window.ptvReady = true;
