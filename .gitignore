@@ -5,3 +5,6 @@ ptv_series/out/*_2x.png
 ptv_series/out/frames/
 ptv_series/out/draft.log
 ptv_series/out/part1_draft.mp4
+ptv_series/out/final.log
+ptv_series/out/*.mp4
+ptv_series/out/contact_*.png

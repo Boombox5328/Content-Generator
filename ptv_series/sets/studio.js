@@ -72,7 +72,7 @@ export function makeStudio() {
   const monLight = new THREE.PointLight(0xff2a40, 0, 12, 2); monLight.position.set(0.2, 1.8, -6.5); live.add(monLight);
 
   // ---------- lights ----------
-  const rig = makeRig({ key: { type: 'spot', pos: [-2.2, 3.5, -1.4], color: 0xffb468, intensity: 70, angle: 0.9, far: 16 }, rim: { pos: [0.5, 3.2, -11], color: 0x7fb4ff, intensity: 3.4 }, fill: { sky: 0x405080, ground: 0x1a1218, intensity: 0.5 }, target: new THREE.Vector3(0, 1.0, -4.5) });
+  const rig = makeRig({ key: { type: 'spot', pos: [-2.2, 3.5, -1.4], color: 0xffb468, intensity: 120, angle: 0.9, far: 16 }, rim: { pos: [0.5, 3.2, -11], color: 0x7fb4ff, intensity: 3.4 }, fill: { sky: 0x405080, ground: 0x1a1218, intensity: 0.5 }, target: new THREE.Vector3(0, 1.0, -4.5) });
   group.add(rig);
   const spots = [[-2.0, -4.5], [-0.5, -3.9], [1.3, -4.3], [1.6, -6.7]].map(([x, z], i) => { const s = new THREE.SpotLight(0xfff0d8, 0, 14, 0.38, 0.8, 2); s.position.set(x + 0.4, 3.6, z + 2.2); s.target.position.set(x, 1.0, z); if (i < 2) { s.castShadow = true; s.shadow.mapSize.set(2048, 2048); s.shadow.bias = -0.0004; }
     live.add(s, s.target); const sh = makeShaft([x + 0.4, 3.6, z + 2.2], [x, 0.0, z], { r0: 0.1, r1: 1.0, color: 0xfff0d8, intensity: 0.0, falloff: 1.1 }); live.add(sh); return { s, sh }; });
@@ -81,6 +81,7 @@ export function makeStudio() {
   const dust = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial({ color: 0xcfe0ff, size: 2.2, sizeAttenuation: false, transparent: true, opacity: 0.45, depthWrite: false, toneMapped: false }));
   const DN = 140, dBase = Array.from({ length: DN }, () => [(R() - 0.5) * 7, R() * 3.2, -1.5 - R() * 7, R() * 6.28, 0.1 + R() * 0.2]); dust.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(DN * 3), 3)); dust.frustumCulled = false; live.add(dust);
 
+  const ctlFill = new THREE.PointLight(0xff9a50, 7, 10, 2); ctlFill.position.set(0, 2.6, 2.4); group.add(ctlFill); const ctlBlue = new THREE.PointLight(0x5a7aff, 4, 9, 2); ctlBlue.position.set(0, 1.2, 4.6); group.add(ctlBlue);
   const set = { id: 'studio', group, glow, figs, mon,
     env: { top: 0x10182e, mid: 0x20284a, horizon: 0x3a3a60, ground: 0x0a0810 }, fog: { color: 0x120e1c, density: 0.026 }, look: { grade: 'amber', bloomI: 1.7, dofScale: 0 },
     // mode: 'studio' | 'rehearsal' ; monument: 0..1 grow ; spots:[a,b,c,d] 0..1 ; show:{tony,jaime}
@@ -89,12 +90,12 @@ export function makeStudio() {
       figs.tony.h.root.visible = reh ? (cfg.spots?.[2] ?? 0) > 0.01 || sh.tony : !!sh.tony; figs.jaime.h.root.visible = reh ? (cfg.spots?.[3] ?? 0) > 0.01 || sh.jaime : !!sh.jaime;
       Object.entries(figs).forEach(([id, f]) => pose(f.h, t, f.mode, { ph: id.length * 0.9 }));
       figs.vic.h.root.position.set(-0.5, 0, -3.9);
-      rig.userData.key.intensity = reh ? 0 : 70; rig.userData.rim.intensity = reh ? 1.0 : 3.4; rimWin.intensity = reh ? 20 : 120; shaftWin.visible = !reh;
+      rig.userData.key.intensity = reh ? 0 : 120; rig.userData.rim.intensity = reh ? 1.0 : 3.4; rimWin.intensity = reh ? 20 : 120; shaftWin.visible = !reh;
       const sp = cfg.spots || [0, 0, 0, 0];
       spots.forEach((o, i) => { o.s.intensity = 380 * sp[i]; o.sh.material.uniforms.intensity.value = 0.55 * sp[i]; o.sh.userData.setT(t); o.sh.visible = sp[i] > 0.01; });
       const m = cfg.monument ?? 0; mon.grow(m); mon.update(t); mon.group.visible = m > 0.001; mon.group.position.y = (1 - m) * -0.6; monLight.intensity = 90 * smooth(0.05, 0.8, m) * (reh ? 0.5 : 1);
       cracks.forEach((c) => { const d = c.userData, k = smooth(0.0, 0.5, m), L = d.L * k + 0.001; c.scale.x = L; c.position.set(0.2 + Math.cos(d.a) * (L / 2 + 0.3), 0.012, -6.9 + Math.sin(d.a) * (L / 2 + 0.3)); c.rotation.y = -d.a; c.visible = m > 0.01; });
-      rain.userData.update(t); shaftWin.userData.setT(t);
+      ctlFill.intensity = reh ? 4 : 7; rain.userData.update(t); shaftWin.userData.setT(t);
       const p = dust.geometry.attributes.position; dBase.forEach((d, i) => p.setXYZ(i, d[0] + Math.sin(t * d[4] + d[3]) * 0.15, d[1] + Math.sin(t * d[4] * 0.7 + d[3]) * 0.1, d[2])); p.needsUpdate = true;
     } };
   return set;
